@@ -49,3 +49,31 @@ export const Expandable: Story = {
     expandable: true,
   },
 };
+
+export const StyledEllipsis: Story = {
+  args: {
+    value: "0x1234567890abcdef1234567890abcdef12345678",
+    expandable: true,
+  },
+  render: (args) => {
+    const attrs = Object.entries(args)
+      .filter(([, v]) => v !== undefined && v !== false)
+      .map(([k, v]) => (v === true ? k : `${k}="${String(v)}"`))
+      .join(" ");
+
+    return createElement("div", {
+      dangerouslySetInnerHTML: {
+        __html: `
+          <style>
+            #ellipsis-style-demo::part(ellipsis) {
+              letter-spacing: -0.05em;
+              color: #b45309;
+              font-weight: 700;
+            }
+          </style>
+          <truncated-value id="ellipsis-style-demo" ${attrs}></truncated-value>
+        `,
+      },
+    });
+  },
+};

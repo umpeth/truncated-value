@@ -116,6 +116,22 @@ import "@umplabs/truncated-value/web-component";
 />
 ```
 
+To style the visual ellipsis in React:
+
+```css
+.my-custom-class .tv-ellipsis {
+  letter-spacing: 0.12em;
+}
+```
+
+For the web component, use the exposed shadow part:
+
+```css
+truncated-value::part(ellipsis) {
+  letter-spacing: 0.12em;
+}
+```
+
 ## Features
 
 - **Smart truncation**: Shows start and end characters, visually collapses the middle
@@ -168,6 +184,10 @@ truncated-value::part(end) {
 
 truncated-value::part(middle) {
   color: #666;
+}
+
+truncated-value::part(ellipsis) {
+  letter-spacing: 0.12em;
 }
 ```
 

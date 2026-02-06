@@ -70,6 +70,26 @@ export const IPFS_CID: Story = {
   },
 };
 
+export const StyledEllipsis: Story = {
+  args: {
+    value: "0x1234567890abcdef1234567890abcdef12345678",
+    expandable: true,
+    className: "ellipsis-style-demo",
+  },
+  render: (args) => (
+    <div>
+      <style>{`
+        .ellipsis-style-demo .tv-ellipsis {
+          letter-spacing: -0.01em;
+          color: #b45309;
+          font-weight: 700;
+        }
+      `}</style>
+      <TruncatedValue {...args} />
+    </div>
+  ),
+};
+
 export const Playground: Story = {
   args: {
     value: "0x1234567890abcdef1234567890abcdef12345678",
