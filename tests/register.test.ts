@@ -184,6 +184,14 @@ describe("TruncatedValue Web Component", () => {
       expect(part).not.toBeNull();
     });
 
+    it("exposes ellipsis part", async () => {
+      const el = createElement({ value: longValue });
+      await waitForUpdate(el);
+
+      const part = el.shadowRoot?.querySelector('[part="ellipsis"]');
+      expect(part).not.toBeNull();
+    });
+
     it("exposes end part", async () => {
       const el = createElement({ value: longValue });
       await waitForUpdate(el);

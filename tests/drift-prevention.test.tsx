@@ -267,6 +267,7 @@ describe("drift prevention: React and Web Component parity", () => {
       expect(root?.querySelector('[part="container"]')).not.toBeNull();
       expect(root?.querySelector('[part="start"]')).not.toBeNull();
       expect(root?.querySelector('[part="middle"]')).not.toBeNull();
+      expect(root?.querySelector('[part="ellipsis"]')).not.toBeNull();
       expect(root?.querySelector('[part="end"]')).not.toBeNull();
     });
   });

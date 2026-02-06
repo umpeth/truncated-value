@@ -16,6 +16,7 @@ import { truncate, styles } from "./core";
  * @csspart container - The main container element
  * @csspart start - The start portion text
  * @csspart middle - The middle portion container
+ * @csspart ellipsis - The visual ellipsis indicator element
  * @csspart end - The end portion text
  *
  *
@@ -72,6 +73,7 @@ export class TruncatedValueElement extends LitElement {
       ><span part="middle" class="tv-middle"
         ><span class="tv-middle-text">${middleFirstHalf}</span
         ><span
+          part="ellipsis"
           class="tv-ellipsis"
           aria-hidden="true"
           data-ellipsis="${this.ellipsis}"
