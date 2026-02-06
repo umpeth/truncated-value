@@ -28,6 +28,7 @@ describe("drift prevention: React and Web Component parity", () => {
     value: string;
     startLength?: number;
     endLength?: number;
+    ellipsis?: string;
     expandable?: boolean;
   }) {
     const el = document.createElement("truncated-value");
@@ -36,6 +37,8 @@ describe("drift prevention: React and Web Component parity", () => {
       el.setAttribute("start-length", String(props.startLength));
     if (props.endLength !== undefined)
       el.setAttribute("end-length", String(props.endLength));
+    if (props.ellipsis !== undefined)
+      el.setAttribute("ellipsis", props.ellipsis);
     if (props.expandable) el.setAttribute("expandable", "");
     container.appendChild(el);
     await (el as unknown as { updateComplete: Promise<boolean> })
@@ -96,6 +99,11 @@ describe("drift prevention: React and Web Component parity", () => {
       startLength: 3,
       endLength: 10,
     },
+    {
+      name: "custom ellipsis",
+      value: "0x1234567890abcdef",
+      ellipsis: "<more>",
+    },
   ];
 
   describe("searchable text parity", () => {
@@ -106,6 +114,7 @@ describe("drift prevention: React and Web Component parity", () => {
             value={tc.value}
             startLength={tc.startLength}
             endLength={tc.endLength}
+            ellipsis={tc.ellipsis}
           />
         );
         const reactEl = reactContainer.querySelector(".truncated-value");
@@ -145,6 +154,7 @@ describe("drift prevention: React and Web Component parity", () => {
             value={tc.value}
             startLength={tc.startLength}
             endLength={tc.endLength}
+            ellipsis={tc.ellipsis}
           />
         );
         const reactAttr = reactContainer
@@ -225,6 +235,27 @@ describe("drift prevention: React and Web Component parity", () => {
       expect(
         webEl.shadowRoot?.querySelector('[aria-hidden="true"]')
       ).not.toBeNull();
+    });
+
+    it("both expose the same ellipsis value", async () => {
+      const customEllipsis = "<more>";
+      const { container: reactContainer } = render(
+        <TruncatedValue value="0x1234567890abcdef" ellipsis={customEllipsis} />
+      );
+      const webEl = await renderWebComponent({
+        value: "0x1234567890abcdef",
+        ellipsis: customEllipsis,
+      });
+
+      const reactEllipsis = reactContainer
+        .querySelector(".tv-ellipsis")
+        ?.getAttribute("data-ellipsis");
+      const webEllipsis = webEl.shadowRoot
+        ?.querySelector(".tv-ellipsis")
+        ?.getAttribute("data-ellipsis");
+
+      expect(reactEllipsis).toBe(webEllipsis);
+      expect(reactEllipsis).toBe(customEllipsis);
     });
   });
 

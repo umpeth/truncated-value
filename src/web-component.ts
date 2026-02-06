@@ -10,6 +10,7 @@ import { truncate, styles } from "./core";
  * @attr {string} value - The string value to display and potentially truncate
  * @attr {number} start-length - Number of characters to show at the start (default: 6)
  * @attr {number} end-length - Number of characters to show at the end (default: 4)
+ * @attr {string} ellipsis - Ellipsis indicator shown when truncated (default: "...")
  * @attr {boolean} expandable - Whether the component should expand on focus/click
  *
  * @csspart container - The main container element
@@ -46,6 +47,9 @@ export class TruncatedValueElement extends LitElement {
   @property({ type: Number, attribute: "end-length" })
   endLength = 4;
 
+  @property({ type: String })
+  ellipsis = "...";
+
   @property({ type: Boolean })
   expandable = false;
 
@@ -66,8 +70,13 @@ export class TruncatedValueElement extends LitElement {
       class="truncated-value"
       ><span part="start">${start}</span
       ><span part="middle" class="tv-middle"
-        ><span>${middleFirstHalf}</span><span aria-hidden="true"></span
-        ><span>${middleSecondHalf}</span></span
+        ><span class="tv-middle-text">${middleFirstHalf}</span
+        ><span
+          class="tv-ellipsis"
+          aria-hidden="true"
+          data-ellipsis="${this.ellipsis}"
+        ></span
+        ><span class="tv-middle-text">${middleSecondHalf}</span></span
       ><span part="end">${end}</span></span
     >`;
   }

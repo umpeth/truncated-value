@@ -41,6 +41,7 @@ export const TruncatedValue: React.FC<TruncatedValueProps> = ({
   value = "",
   startLength = 6,
   endLength = 4,
+  ellipsis = "...",
   expandable = false,
   className,
   style,
@@ -50,6 +51,8 @@ export const TruncatedValue: React.FC<TruncatedValueProps> = ({
     startLength,
     endLength,
   });
+  const middleFirstHalf = middle.slice(0, middle.length / 2);
+  const middleSecondHalf = middle.slice(middle.length / 2);
 
   return (
     <>
@@ -62,9 +65,13 @@ export const TruncatedValue: React.FC<TruncatedValueProps> = ({
       >
         <span>{start}</span>
         <span className="tv-middle">
-          <span>{middle.slice(0, middle.length / 2)}</span>
-          <span aria-hidden="true"></span>
-          <span>{middle.slice(middle.length / 2)}</span>
+          <span className="tv-middle-text">{middleFirstHalf}</span>
+          <span
+            className="tv-ellipsis"
+            aria-hidden="true"
+            data-ellipsis={ellipsis}
+          ></span>
+          <span className="tv-middle-text">{middleSecondHalf}</span>
         </span>
         <span>{end}</span>
       </span>

@@ -83,6 +83,17 @@ describe("TruncatedValue Web Component", () => {
       expect(shadow?.textContent).toContain(longValue.slice(0, 8));
       expect(shadow?.textContent).toContain(longValue.slice(-6));
     });
+
+    it("respects custom ellipsis attribute", async () => {
+      const el = createElement({
+        value: longValue,
+        ellipsis: "[more]",
+      });
+      await waitForUpdate(el);
+
+      const ellipsis = el.shadowRoot?.querySelector(".tv-ellipsis");
+      expect(ellipsis?.getAttribute("data-ellipsis")).toBe("[more]");
+    });
   });
 
   describe("expandable attribute", () => {
@@ -131,6 +142,20 @@ describe("TruncatedValue Web Component", () => {
       await waitForUpdate(el);
 
       expect(el.shadowRoot?.textContent).toContain(longValue.slice(0, 10));
+    });
+
+    it("updates when ellipsis changes", async () => {
+      const el = createElement({ value: longValue, ellipsis: "..." });
+      await waitForUpdate(el);
+
+      const initialEllipsis = el.shadowRoot?.querySelector(".tv-ellipsis");
+      expect(initialEllipsis?.getAttribute("data-ellipsis")).toBe("...");
+
+      el.setAttribute("ellipsis", "<more>");
+      await waitForUpdate(el);
+
+      const updatedEllipsis = el.shadowRoot?.querySelector(".tv-ellipsis");
+      expect(updatedEllipsis?.getAttribute("data-ellipsis")).toBe("<more>");
     });
   });
 

@@ -16,6 +16,7 @@ const meta = {
     value: { control: "text" },
     "start-length": { control: { type: "number", min: 0, max: 50 } },
     "end-length": { control: { type: "number", min: 0, max: 50 } },
+    ellipsis: { control: "text" },
     expandable: { control: "boolean" },
   },
   render: (args) => {

@@ -138,6 +138,7 @@ This component ships with **no visual opinions** — no colors, fonts, sizes, or
 | `value`       | `string`  | `""`    | The string value to display and potentially truncate |
 | `startLength` | `number`  | `6`     | Number of characters to show at the start            |
 | `endLength`   | `number`  | `4`     | Number of characters to show at the end              |
+| `ellipsis`    | `string`  | `"..."` | Ellipsis indicator shown when truncated              |
 | `expandable`  | `boolean` | `false` | Whether the component expands on focus/click         |
 | `className`   | `string`  | -       | Additional CSS class name                            |
 
@@ -148,6 +149,7 @@ This component ships with **no visual opinions** — no colors, fonts, sizes, or
 | `value`        | `string`  | `""`    | The string value to display                  |
 | `start-length` | `number`  | `6`     | Characters to show at the start              |
 | `end-length`   | `number`  | `4`     | Characters to show at the end                |
+| `ellipsis`     | `string`  | `"..."` | Ellipsis indicator shown when truncated      |
 | `expandable`   | `boolean` | `false` | Whether the component expands on focus/click |
 
 ### Shadow DOM Parts (Web Component)
