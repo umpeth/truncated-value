@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TruncatedValue E2E Tests</title>
+    <script src="/dist/truncated-value.iife.global.js"></script>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        padding: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      h2 {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>TruncatedValue E2E Test Fixtures</h1>
+
+    <section id="searchable-test">
+      <h2>Searchable Test</h2>
+      <p>
+        The following value contains "HIDDEN_MIDDLE_TEXT" in its middle portion:
+      </p>
+      <truncated-value
+        id="searchable-value"
+        value="0xSTART_HIDDEN_MIDDLE_TEXT_END123"
+        start-length="7"
+        end-length="6"
+        expandable
+      ></truncated-value>
+    </section>
+
+    <section id="keyboard-test">
+      <h2>Keyboard Navigation Test</h2>
+      <p>Tab to the value below and press Enter/Space to expand:</p>
+      <truncated-value
+        id="keyboard-value"
+        value="0x1234567890abcdef1234567890abcdef12345678"
+        start-length="6"
+        end-length="4"
+        expandable
+      ></truncated-value>
+    </section>
+
+    <section id="expansion-test">
+      <h2>Expansion Test</h2>
+      <p>Click to expand/collapse:</p>
+      <truncated-value
+        id="expansion-value"
+        value="This is a long string that will be truncated and can be expanded"
+        start-length="10"
+        end-length="8"
+        expandable
+      ></truncated-value>
+    </section>
+
+    <section id="focus-visible-test">
+      <h2>Focus Visible Test</h2>
+      <p>Tab navigation should show focus ring:</p>
+      <button id="before-focus">Before</button>
+      <truncated-value
+        id="focus-value"
+        value="0xabcdefghijklmnopqrstuvwxyz123456"
+        start-length="6"
+        end-length="6"
+        expandable
+      ></truncated-value>
+      <button id="after-focus">After</button>
+    </section>
+  </body>
+</html>

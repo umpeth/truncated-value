@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TruncatedValue Demo</title>
+    <style>
+      :root {
+        --bg: #0a0a0a;
+        --surface: #1a1a1a;
+        --border: #333;
+        --text: #fafafa;
+        --text-muted: #888;
+        --primary: #3b82f6;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      .section {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .section h2 {
+        font-size: 1.25rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .section h2 .badge {
+        font-size: 0.75rem;
+        background: var(--primary);
+        color: white;
+        padding: 0.125rem 0.5rem;
+        border-radius: 9999px;
+        font-weight: normal;
+      }
+
+      .demo-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .demo-row:last-child {
+        border-bottom: none;
+      }
+
+      .demo-row label {
+        min-width: 150px;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+
+      .demo-row .value {
+        font-size: 1rem;
+      }
+
+      .controls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+
+      .control-group label {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="color"] {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 0.5rem;
+        color: var(--text);
+        font-size: 0.875rem;
+      }
+
+      input[type="color"] {
+        padding: 0.25rem;
+        height: 38px;
+        cursor: pointer;
+      }
+
+      input[type="checkbox"] {
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+
+      .checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+      }
+
+      #preview {
+        font-size: 1.25rem;
+        padding: 1rem;
+        background: var(--bg);
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      code {
+        background: var(--bg);
+        padding: 0.125rem 0.375rem;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
+
+      pre {
+        background: var(--bg);
+        padding: 1rem;
+        border-radius: 4px;
+        overflow-x: auto;
+        font-size: 0.875rem;
+      }
+
+      .info {
+        background: rgba(59, 130, 246, 0.1);
+        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-radius: 4px;
+        padding: 1rem;
+        font-size: 0.875rem;
+        margin-top: 1rem;
+      }
+
+      .info strong {
+        color: var(--primary);
+      }
+
+      a {
+        color: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>truncated-value</h1>
+    <p class="subtitle">
+      Intelligently truncate long strings with interactive expansion and full
+      searchability
+    </p>
+
+    <div class="section">
+      <h2>Interactive Playground</h2>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="value">Value</label>
+          <input
+            type="text"
+            id="value"
+            value="0x1234567890abcdef1234567890abcdef12345678"
+          />
+        </div>
+        <div class="control-group">
+          <label for="startLength">Start Length</label>
+          <input type="number" id="startLength" value="6" min="0" max="100" />
+        </div>
+        <div class="control-group">
+          <label for="endLength">End Length</label>
+          <input type="number" id="endLength" value="4" min="0" max="100" />
+        </div>
+        <div class="control-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="expandable" checked />
+            Expandable (click to expand)
+          </label>
+        </div>
+      </div>
+
+      <div id="preview">
+        <truncated-value
+          value="0x1234567890abcdef1234567890abcdef12345678"
+          start-length="6"
+          end-length="4"
+          expandable
+        ></truncated-value>
+      </div>
+
+      <div class="info">
+        <strong>Tip:</strong> Try pressing Ctrl+F (or Cmd+F) and search for the
+        middle characters. The full text is searchable even when visually
+        truncated!
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Examples <span class="badge">Web Component</span></h2>
+
+      <div class="demo-row">
+        <label>Default (not expandable)</label>
+        <span class="value">
+          <truncated-value
+            value="0x1234567890abcdef1234567890abcdef12345678"
+          ></truncated-value>
+        </span>
+      </div>
+
+      <div class="demo-row">
+        <label>Expandable</label>
+        <span class="value">
+          <truncated-value
+            value="0x1234567890abcdef1234567890abcdef12345678"
+            expandable
+          ></truncated-value>
+        </span>
+      </div>
+
+      <div class="demo-row">
+        <label>Custom lengths (8, 6)</label>
+        <span class="value">
+          <truncated-value
+            value="0x1234567890abcdef1234567890abcdef12345678"
+            start-length="8"
+            end-length="6"
+            expandable
+          ></truncated-value>
+        </span>
+      </div>
+
+      <div class="demo-row">
+        <label>Short value (no truncation)</label>
+        <span class="value">
+          <truncated-value value="0x1234" expandable></truncated-value>
+        </span>
+      </div>
+
+      <div class="demo-row">
+        <label>Transaction hash</label>
+        <span class="value">
+          <truncated-value
+            value="0xf7b9d38a3c5e4e7b9d38a3c5e4e7b9d38a3c5e4e7b9d38a3c5e4e7b9d38a3c5e4e"
+            start-length="10"
+            end-length="8"
+            expandable
+          ></truncated-value>
+        </span>
+      </div>
+
+      <div class="demo-row">
+        <label>IPFS CID</label>
+        <span class="value">
+          <truncated-value
+            value="QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG"
+            start-length="6"
+            end-length="6"
+            expandable
+          ></truncated-value>
+        </span>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Usage</h2>
+
+      <h3>HTML (CDN)</h3>
+      <pre><code>&lt;script type="module" src="https://unpkg.com/truncated-value"&gt;&lt;/script&gt;
+&lt;truncated-value value="0x1234..." expandable&gt;&lt;/truncated-value&gt;</code></pre>
+
+      <h3>React</h3>
+      <pre><code>import { TruncatedValue } from 'truncated-value';
+
+&lt;TruncatedValue
+  value="0x1234..."
+  startLength={6}
+  endLength={4}
+  expandable
+/&gt;</code></pre>
+
+      <h3>Vue / Svelte (Web Component)</h3>
+      <pre><code>import 'truncated-value/register';
+
+&lt;truncated-value value="0x1234..." expandable /&gt;</code></pre>
+
+      <h3>Core Logic Only</h3>
+      <pre><code>import { truncate } from 'truncated-value/core';
+
+const result = truncate({
+  value: '0x1234567890abcdef...',
+  startLength: 6,
+  endLength: 4
+});
+// result.start = '0x1234'
+// result.end = 'cdef'
+// result.middle = '567890ab...'
+// result.isTruncated = true</code></pre>
+    </div>
+
+    <div class="section">
+      <h2>CSS Customization</h2>
+      <p>Use the <code>::part()</code> selector to style shadow DOM parts:</p>
+      <pre><code>truncated-value::part(container) {
+  font-weight: bold;
+}
+
+truncated-value::part(start),
+truncated-value::part(end) {
+  color: #888;
+}</code></pre>
+    </div>
+
+    <!-- Load the web component -->
+    <script type="module">
+      // In development, load from local build
+      // In production, this would be: import 'truncated-value/register'
+      import "../dist/register.js";
+
+      // Interactive playground controls
+      const valueInput = document.getElementById("value");
+      const startLengthInput = document.getElementById("startLength");
+      const endLengthInput = document.getElementById("endLength");
+      const expandableInput = document.getElementById("expandable");
+      const preview = document.querySelector("#preview truncated-value");
+
+      function updatePreview() {
+        preview.setAttribute("value", valueInput.value);
+        preview.setAttribute("start-length", startLengthInput.value);
+        preview.setAttribute("end-length", endLengthInput.value);
+        if (expandableInput.checked) {
+          preview.setAttribute("expandable", "");
+        } else {
+          preview.removeAttribute("expandable");
+        }
+      }
+
+      valueInput.addEventListener("input", updatePreview);
+      startLengthInput.addEventListener("input", updatePreview);
+      endLengthInput.addEventListener("input", updatePreview);
+      expandableInput.addEventListener("change", updatePreview);
+    </script>
+  </body>
+</html>

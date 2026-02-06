@@ -1,0 +1,139 @@
+{
+  "name": "@umplabs/truncated-value",
+  "version": "0.1.0",
+  "description": "A component that intelligently truncates long string values with interactive expansion and full searchability",
+  "keywords": [
+    "truncate",
+    "ellipsis",
+    "address",
+    "ethereum",
+    "web3",
+    "react",
+    "web-component",
+    "lit"
+  ],
+  "license": "MIT",
+  "author": "UMP Labs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/umpeth/truncated-value.git"
+  },
+  "bugs": {
+    "url": "https://github.com/umpeth/truncated-value/issues"
+  },
+  "homepage": "https://github.com/umpeth/truncated-value#readme",
+  "type": "module",
+  "exports": {
+    "./react": {
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
+    },
+    "./web-component": {
+      "import": {
+        "types": "./dist/web-component.d.ts",
+        "default": "./dist/web-component.js"
+      },
+      "require": {
+        "types": "./dist/web-component.d.cts",
+        "default": "./dist/web-component.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "./dist/web-component.js",
+    "./dist/web-component.cjs"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "lint": "eslint src tests",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "size": "size-limit",
+    "prepublishOnly": "pnpm build",
+    "prepare": "husky"
+  },
+  "peerDependencies": {
+    "lit": "^3.2.0",
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "peerDependenciesMeta": {
+    "lit": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@playwright/test": "^1.58.1",
+    "@size-limit/file": "^12.0.0",
+    "@storybook/react-vite": "^10.2.2",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.0.0",
+    "@types/node": "^25.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "happy-dom": "^20.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "serve": "^14.2.5",
+    "size-limit": "^12.0.0",
+    "storybook": "^10.2.2",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.54.0",
+    "vitest": "^4.0.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "!(*.{js,jsx,ts,tsx})": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "pnpm": {
+    "overrides": {
+      "@isaacs/brace-expansion": ">=5.0.1"
+    }
+  }
+}

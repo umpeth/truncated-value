@@ -1,0 +1,4 @@
+[
+  { "path": "dist/react.js", "limit": "1.5 KB", "gzip": true },
+  { "path": "dist/web-component.js", "limit": "2 KB", "gzip": true }
+]
