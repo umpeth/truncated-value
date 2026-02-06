@@ -25,10 +25,12 @@ jobs:
         with:
           node-version: 20
           cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Test
         run: pnpm test
@@ -37,7 +39,4 @@ jobs:
         run: pnpm build
 
       - name: Publish to npm
-        run: pnpm publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+        run: pnpm publish --access public --no-git-checks --provenance
