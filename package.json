@@ -1,6 +1,6 @@
 {
   "name": "@umplabs/truncated-value",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A component that intelligently truncates long string values with interactive expansion and full searchability",
   "keywords": [
     "truncate",
