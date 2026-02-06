@@ -8,6 +8,7 @@ const meta = {
     value: { control: "text" },
     startLength: { control: { type: "number", min: 0, max: 50 } },
     endLength: { control: { type: "number", min: 0, max: 50 } },
+    ellipsis: { control: "text" },
     expandable: { control: "boolean" },
     className: { control: "text" },
   },
@@ -74,6 +75,7 @@ export const Playground: Story = {
     value: "0x1234567890abcdef1234567890abcdef12345678",
     startLength: 6,
     endLength: 4,
+    ellipsis: "...",
     expandable: true,
   },
 };

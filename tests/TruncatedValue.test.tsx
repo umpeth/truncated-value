@@ -43,6 +43,16 @@ describe("TruncatedValue React component", () => {
       );
     });
 
+    it("respects custom ellipsis prop", () => {
+      const customEllipsis = "[more]";
+      const { container } = render(
+        <TruncatedValue value={longValue} ellipsis={customEllipsis} />
+      );
+
+      const ellipsisElement = container.querySelector(".tv-ellipsis");
+      expect(ellipsisElement).toHaveAttribute("data-ellipsis", customEllipsis);
+    });
+
     it("handles empty value gracefully", () => {
       const { container } = render(<TruncatedValue value="" />);
       expect(container).toBeInTheDocument();
@@ -138,8 +148,9 @@ describe("TruncatedValue React component", () => {
     it("renders ellipsis indicator in middle section", () => {
       const { container } = render(<TruncatedValue value={longValue} />);
 
-      const hiddenSpan = container.querySelector('[aria-hidden="true"]');
+      const hiddenSpan = container.querySelector(".tv-ellipsis");
       expect(hiddenSpan).toBeInTheDocument();
+      expect(hiddenSpan).toHaveAttribute("data-ellipsis", "...");
     });
 
     it("makes the full text searchable via browser find functionality", () => {

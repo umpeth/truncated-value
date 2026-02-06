@@ -34,6 +34,8 @@ export interface TruncatedValueBaseProps {
   startLength?: number;
   /** Number of characters to show at the end when truncated (default: 4) */
   endLength?: number;
+  /** Ellipsis indicator shown between start and end when truncated (default: "...") */
+  ellipsis?: string;
   /** Whether the component should expand on focus/click (default: false) */
   expandable?: boolean;
 }
