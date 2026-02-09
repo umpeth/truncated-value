@@ -2,6 +2,8 @@
 
 Truncate long strings safely, without destroying searchability or verifiability.
 
+[Live Demo & Playground](https://umpeth.github.io/truncated-value/)
+
 ## The Problem: Address Poisoning
 
 Almost all apps, wallets and explorers display addresses truncated to their first and last few characters (e.g. `0xd8dA...6045`). [Address poisoning scams](https://support.metamask.io/stay-safe/protect-yourself/wallet-and-hardware/address-poisoning-scams) exploit this: attackers generate addresses matching the visible prefix and suffix, seed them into transaction histories, and wait for users to copy the wrong one.

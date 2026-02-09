@@ -159,6 +159,10 @@
         font-size: 0.875rem;
       }
 
+      pre code {
+        padding: 0;
+      }
+
       .info {
         background: rgba(59, 130, 246, 0.1);
         border: 1px solid rgba(59, 130, 246, 0.3);
@@ -177,6 +181,7 @@
       }
     </style>
   </head>
+
   <body>
     <h1>truncated-value</h1>
     <p class="subtitle">
@@ -185,12 +190,48 @@
     </p>
 
     <div class="section">
+      <h2>Why This Exists</h2>
+      <p>
+        Most apps display addresses truncated to their first and last few
+        characters (e.g. <code>0xd8dA...6045</code>).
+        <a
+          href="https://support.metamask.io/stay-safe/protect-yourself/wallet-and-hardware/address-poisoning-scams"
+          target="_blank"
+          rel="noopener"
+          >Address poisoning scams</a
+        >
+        exploit this: attackers generate addresses matching the visible prefix
+        and suffix, seed them into transaction histories, and wait for users to
+        copy the wrong one.
+        <strong
+          >Truncation hides the characters that matter most for
+          verification.</strong
+        >
+      </p>
+      <p>
+        This component keeps the
+        <strong>full value in the DOM at all times</strong>. The middle portion
+        is visually collapsed with CSS, but never removed:
+      </p>
+      <ul>
+        <li>
+          <strong>Browser find (Ctrl+F) matches the complete string</strong>,
+          even while truncated
+        </li>
+        <li>
+          <strong>Click to expand</strong> lets users inspect every character
+          before copying
+        </li>
+      </ul>
+    </div>
+
+    <div class="section">
       <h2>Interactive Playground</h2>
 
       <div class="controls">
         <div class="control-group">
-          <label for="value">Value</label>
-          <input
+          <label for="value">Value</label
+          ><input
             type="text"
             id="value"
             value="0x1234567890abcdef1234567890abcdef12345678"
@@ -229,7 +270,7 @@
     </div>
 
     <div class="section">
-      <h2>Examples <span class="badge">Web Component</span></h2>
+      <h2>Examples</h2>
 
       <div class="demo-row">
         <label>Default (not expandable)</label>
@@ -295,43 +336,47 @@
     </div>
 
     <div class="section">
+      <h2>Installation</h2>
+      <pre><code>npm install @umplabs/truncated-value
+# or
+pnpm add @umplabs/truncated-value</code></pre>
+      <p>Or use the CDN with no bundler required:</p>
+      <pre><code>&lt;script src="https://unpkg.com/@umplabs/truncated-value/dist/truncated-value.iife.global.js"&gt;&lt;/script&gt;</code></pre>
+    </div>
+
+    <div class="section">
       <h2>Usage</h2>
 
       <h3>HTML (CDN)</h3>
-      <pre><code>&lt;script type="module" src="https://unpkg.com/truncated-value"&gt;&lt;/script&gt;
-&lt;truncated-value value="0x1234..." expandable&gt;&lt;/truncated-value&gt;</code></pre>
+      <pre><code>&lt;script src="https://unpkg.com/@umplabs/truncated-value/dist/truncated-value.iife.global.js"&gt;&lt;/script&gt;
+&lt;truncated-value value="0x1234567890abcdef1234567890abcdef12345678" expandable&gt;&lt;/truncated-value&gt;</code></pre>
 
       <h3>React</h3>
-      <pre><code>import { TruncatedValue } from 'truncated-value';
+      <pre><code>import { TruncatedValue } from '@umplabs/truncated-value/react';
 
 &lt;TruncatedValue
-  value="0x1234..."
+  value="0x1234567890abcdef1234567890abcdef12345678"
   startLength={6}
   endLength={4}
   expandable
 /&gt;</code></pre>
 
       <h3>Vue / Svelte (Web Component)</h3>
-      <pre><code>import 'truncated-value/register';
+      <pre><code>import '@umplabs/truncated-value/web-component';
 
-&lt;truncated-value value="0x1234..." expandable /&gt;</code></pre>
-
-      <h3>Core Logic Only</h3>
-      <pre><code>import { truncate } from 'truncated-value/core';
-
-const result = truncate({
-  value: '0x1234567890abcdef...',
-  startLength: 6,
-  endLength: 4
-});
-// result.start = '0x1234'
-// result.end = 'cdef'
-// result.middle = '567890ab...'
-// result.isTruncated = true</code></pre>
+&lt;truncated-value value="0x1234567890abcdef1234567890abcdef12345678" expandable /&gt;</code></pre>
     </div>
 
     <div class="section">
-      <h2>CSS Customization</h2>
+      <h2>Styling</h2>
+      <p>
+        This component ships with no visual opinions — no colors, fonts, sizes,
+        or spacing. The only built-in CSS handles the truncation mechanics.
+        Everything else is up to you, so it fits naturally into any design
+        system or brand.
+      </p>
+
+      <h3>Web Component</h3>
       <p>Use the <code>::part()</code> selector to style shadow DOM parts:</p>
       <pre><code>truncated-value::part(container) {
   font-weight: bold;
@@ -341,14 +386,41 @@ truncated-value::part(start),
 truncated-value::part(end) {
   color: #888;
 }</code></pre>
+
+      <h3>React</h3>
+      <p>
+        Use the <code>className</code> / <code>style</code> props and target CSS
+        classes:
+      </p>
+      <pre><code>.truncated-value { font-weight: bold; }
+.tv-middle       { /* hidden middle text */ }
+.tv-ellipsis     { /* the ellipsis indicator */ }</code></pre>
     </div>
 
-    <!-- Load the web component -->
-    <script type="module">
-      // In development, load from local build
-      // In production, this would be: import 'truncated-value/register'
-      import "../dist/register.js";
+    <p style="text-align: center; color: var(--text-muted); margin: 2rem 0">
+      <a
+        href="https://github.com/umpeth/truncated-value"
+        target="_blank"
+        rel="noopener"
+        >GitHub</a
+      >
+      &middot;
+      <a
+        href="https://www.npmjs.com/package/@umplabs/truncated-value"
+        target="_blank"
+        rel="noopener"
+        >npm</a
+      >
+      &middot;
+      <a href="https://x.com/ump_eth" target="_blank" rel="noopener"
+        >@ump_eth</a
+      >
+      &middot; MIT License
+    </p>
 
+    <!-- Load the web component -->
+    <script src="dist/truncated-value.iife.global.js"></script>
+    <script>
       // Interactive playground controls
       const valueInput = document.getElementById("value");
       const startLengthInput = document.getElementById("startLength");
@@ -371,6 +443,9 @@ truncated-value::part(end) {
       startLengthInput.addEventListener("input", updatePreview);
       endLengthInput.addEventListener("input", updatePreview);
       expandableInput.addEventListener("change", updatePreview);
+
+      // Sync preview with any browser-restored input values on load
+      updatePreview();
     </script>
   </body>
 </html>
