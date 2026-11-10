@@ -67,7 +67,7 @@ import "@umplabs/truncated-value/web-component";
 ### CDN (No bundler required)
 
 ```html
-<script type="module" src="https://unpkg.com/@umplabs/truncated-value"></script>
+<script src="https://unpkg.com/@umplabs/truncated-value/dist/truncated-value.iife.global.js"></script>
 
 <truncated-value
   value="0x1234567890abcdef1234567890abcdef12345678"
