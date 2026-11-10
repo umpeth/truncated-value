@@ -1,0 +1,6 @@
+# Only install package versions published at least 7 days ago (in minutes).
+minimumReleaseAge: 10080
+
+# pnpm 10 blocks dependency install scripts by default; esbuild's postinstall verifies its native binary.
+onlyBuiltDependencies:
+  - esbuild
